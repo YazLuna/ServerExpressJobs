@@ -1,4 +1,9 @@
 ﻿using System;
+using ServerExpressJobs.services;
+using Thrift.Protocol;
+using Thrift.Server;
+using Thrift.Transport;
+using static ResourcesServices;
 
 namespace ServerExpressJobs
 {
@@ -6,7 +11,12 @@ namespace ServerExpressJobs
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Processor processor = new Processor(new ResourceHandler());
+            TTransportFactory transportFactory = new TTransportFactory();
+            TProtocolFactory protocolFactory = new TBinaryProtocol.Factory();
+            TServerSocket serverSocket = new TServerSocket(50000);
+            TSimpleServer simpleServer = new TSimpleServer(processor, serverSocket, transportFactory, protocolFactory);
+            simpleServer.Serve();
         }
     }
 }
