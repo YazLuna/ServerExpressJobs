@@ -9,8 +9,4 @@
       <PackageReference Include="ApacheThrift" Version="0.10.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="src\models" />
-    </ItemGroup>
-
 </Project>

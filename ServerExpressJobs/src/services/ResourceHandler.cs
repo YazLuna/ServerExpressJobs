@@ -10,7 +10,7 @@ namespace ServerExpressJobs.services
         public int AddResource(Resource resource)
         {
             Console.Write(resource.RouteSave);
-            int result = 500;
+            int result = (int)ResponsesREST.SERVER_ERROR;
             string url = "ftp://amigosinformaticos.ddns.net/";
             FtpWebRequest ftpSave = (FtpWebRequest) WebRequest.Create(new Uri(url+resource.RouteSave));
             ftpSave.Credentials = new NetworkCredential("trabajosexpress", "expressWigettaz4");
@@ -26,26 +26,49 @@ namespace ServerExpressJobs.services
             FtpWebResponse response = (FtpWebResponse) ftpSave.GetResponse();
             if (response.StatusCode == FtpStatusCode.ClosingData)
             {
-                result = 201;
+                result = (int)ResponsesREST.CREATED;
             }
             response.Close();
 
             return result;
         }
 
-        public Resource GetResource(int idResource)
+        public Resource GetResource(string routeSave)
         {
-            throw new System.NotImplementedException();
+            string url = "ftp://amigosinformaticos.ddns.net/"+routeSave;
+            Resource resource = new Resource {RouteSave = routeSave};
+            using (WebClient webClient = new WebClient())
+            {
+                webClient.Credentials = new NetworkCredential("trabajosexpress", "expressWigettaz4");
+                resource.ResourceFile = webClient.DownloadData(url);
+            }
+            return resource;
         }
 
-        public int DeleteResource(int idResource)
+        public int DeleteResource(string routeSave)
         {
-            throw new System.NotImplementedException();
+            int result = 500;
+            string url = "ftp://amigosinformaticos.ddns.net/"+routeSave;
+            FtpWebRequest ftpWebRequest = (FtpWebRequest) WebRequest.Create(url);
+            ftpWebRequest.Credentials = new NetworkCredential("trabajosexpress", "expressWigettaz4");
+            ftpWebRequest.Method = WebRequestMethods.Ftp.DeleteFile;
+            FtpWebResponse response = (FtpWebResponse) ftpWebRequest.GetResponse();
+            if (response.StatusCode == FtpStatusCode.CommandOK)
+            {
+                result = 200;
+            }
+            return result;
         }
 
-        public List<Resource> GetResourcesList(int idService)
+        public List<Resource> GetResourcesList(List<string> routes)
         {
-            throw new System.NotImplementedException();
+            List<Resource> resourcesFound = new List<Resource>();
+            foreach (var route in routes)
+            {
+                resourcesFound.Add(GetResource(route));
+            }
+            return resourcesFound;
         }
+        
     }
 }
