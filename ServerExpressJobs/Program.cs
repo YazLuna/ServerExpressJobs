@@ -1,5 +1,4 @@
-﻿using System;
-using ServerExpressJobs.services;
+﻿using ServerExpressJobs.services;
 using Thrift.Protocol;
 using Thrift.Server;
 using Thrift.Transport;
