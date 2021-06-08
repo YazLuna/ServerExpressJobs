@@ -18,9 +18,9 @@ using Thrift.Transport;
 public partial class ResourcesServices {
   public interface ISync {
     int AddResource(Resource resource);
-    Resource GetResource(int idResource);
-    int DeleteResource(int idResource);
-    List<Resource> GetResourcesList(int idService);
+    Resource GetResource(string routeSave);
+    int DeleteResource(string routeSave);
+    List<Resource> GetResourcesList(List<string> routes);
   }
 
   public interface Iface : ISync {
@@ -29,15 +29,15 @@ public partial class ResourcesServices {
     int End_AddResource(IAsyncResult asyncResult);
     #endif
     #if SILVERLIGHT
-    IAsyncResult Begin_GetResource(AsyncCallback callback, object state, int idResource);
+    IAsyncResult Begin_GetResource(AsyncCallback callback, object state, string routeSave);
     Resource End_GetResource(IAsyncResult asyncResult);
     #endif
     #if SILVERLIGHT
-    IAsyncResult Begin_DeleteResource(AsyncCallback callback, object state, int idResource);
+    IAsyncResult Begin_DeleteResource(AsyncCallback callback, object state, string routeSave);
     int End_DeleteResource(IAsyncResult asyncResult);
     #endif
     #if SILVERLIGHT
-    IAsyncResult Begin_GetResourcesList(AsyncCallback callback, object state, int idService);
+    IAsyncResult Begin_GetResourcesList(AsyncCallback callback, object state, List<string> routes);
     List<Resource> End_GetResourcesList(IAsyncResult asyncResult);
     #endif
   }
@@ -162,9 +162,9 @@ public partial class ResourcesServices {
 
     
     #if SILVERLIGHT
-    public IAsyncResult Begin_GetResource(AsyncCallback callback, object state, int idResource)
+    public IAsyncResult Begin_GetResource(AsyncCallback callback, object state, string routeSave)
     {
-      return send_GetResource(callback, state, idResource);
+      return send_GetResource(callback, state, routeSave);
     }
 
     public Resource End_GetResource(IAsyncResult asyncResult)
@@ -175,27 +175,27 @@ public partial class ResourcesServices {
 
     #endif
 
-    public Resource GetResource(int idResource)
+    public Resource GetResource(string routeSave)
     {
       #if !SILVERLIGHT
-      send_GetResource(idResource);
+      send_GetResource(routeSave);
       return recv_GetResource();
 
       #else
-      var asyncResult = Begin_GetResource(null, null, idResource);
+      var asyncResult = Begin_GetResource(null, null, routeSave);
       return End_GetResource(asyncResult);
 
       #endif
     }
     #if SILVERLIGHT
-    public IAsyncResult send_GetResource(AsyncCallback callback, object state, int idResource)
+    public IAsyncResult send_GetResource(AsyncCallback callback, object state, string routeSave)
     #else
-    public void send_GetResource(int idResource)
+    public void send_GetResource(string routeSave)
     #endif
     {
       oprot_.WriteMessageBegin(new TMessage("GetResource", TMessageType.Call, seqid_));
       GetResource_args args = new GetResource_args();
-      args.IdResource = idResource;
+      args.RouteSave = routeSave;
       args.Write(oprot_);
       oprot_.WriteMessageEnd();
       #if SILVERLIGHT
@@ -224,9 +224,9 @@ public partial class ResourcesServices {
 
     
     #if SILVERLIGHT
-    public IAsyncResult Begin_DeleteResource(AsyncCallback callback, object state, int idResource)
+    public IAsyncResult Begin_DeleteResource(AsyncCallback callback, object state, string routeSave)
     {
-      return send_DeleteResource(callback, state, idResource);
+      return send_DeleteResource(callback, state, routeSave);
     }
 
     public int End_DeleteResource(IAsyncResult asyncResult)
@@ -237,27 +237,27 @@ public partial class ResourcesServices {
 
     #endif
 
-    public int DeleteResource(int idResource)
+    public int DeleteResource(string routeSave)
     {
       #if !SILVERLIGHT
-      send_DeleteResource(idResource);
+      send_DeleteResource(routeSave);
       return recv_DeleteResource();
 
       #else
-      var asyncResult = Begin_DeleteResource(null, null, idResource);
+      var asyncResult = Begin_DeleteResource(null, null, routeSave);
       return End_DeleteResource(asyncResult);
 
       #endif
     }
     #if SILVERLIGHT
-    public IAsyncResult send_DeleteResource(AsyncCallback callback, object state, int idResource)
+    public IAsyncResult send_DeleteResource(AsyncCallback callback, object state, string routeSave)
     #else
-    public void send_DeleteResource(int idResource)
+    public void send_DeleteResource(string routeSave)
     #endif
     {
       oprot_.WriteMessageBegin(new TMessage("DeleteResource", TMessageType.Call, seqid_));
       DeleteResource_args args = new DeleteResource_args();
-      args.IdResource = idResource;
+      args.RouteSave = routeSave;
       args.Write(oprot_);
       oprot_.WriteMessageEnd();
       #if SILVERLIGHT
@@ -286,9 +286,9 @@ public partial class ResourcesServices {
 
     
     #if SILVERLIGHT
-    public IAsyncResult Begin_GetResourcesList(AsyncCallback callback, object state, int idService)
+    public IAsyncResult Begin_GetResourcesList(AsyncCallback callback, object state, List<string> routes)
     {
-      return send_GetResourcesList(callback, state, idService);
+      return send_GetResourcesList(callback, state, routes);
     }
 
     public List<Resource> End_GetResourcesList(IAsyncResult asyncResult)
@@ -299,27 +299,27 @@ public partial class ResourcesServices {
 
     #endif
 
-    public List<Resource> GetResourcesList(int idService)
+    public List<Resource> GetResourcesList(List<string> routes)
     {
       #if !SILVERLIGHT
-      send_GetResourcesList(idService);
+      send_GetResourcesList(routes);
       return recv_GetResourcesList();
 
       #else
-      var asyncResult = Begin_GetResourcesList(null, null, idService);
+      var asyncResult = Begin_GetResourcesList(null, null, routes);
       return End_GetResourcesList(asyncResult);
 
       #endif
     }
     #if SILVERLIGHT
-    public IAsyncResult send_GetResourcesList(AsyncCallback callback, object state, int idService)
+    public IAsyncResult send_GetResourcesList(AsyncCallback callback, object state, List<string> routes)
     #else
-    public void send_GetResourcesList(int idService)
+    public void send_GetResourcesList(List<string> routes)
     #endif
     {
       oprot_.WriteMessageBegin(new TMessage("GetResourcesList", TMessageType.Call, seqid_));
       GetResourcesList_args args = new GetResourcesList_args();
-      args.IdService = idService;
+      args.Routes = routes;
       args.Write(oprot_);
       oprot_.WriteMessageEnd();
       #if SILVERLIGHT
@@ -423,7 +423,7 @@ public partial class ResourcesServices {
       GetResource_result result = new GetResource_result();
       try
       {
-        result.Success = iface_.GetResource(args.IdResource);
+        result.Success = iface_.GetResource(args.RouteSave);
         oprot.WriteMessageBegin(new TMessage("GetResource", TMessageType.Reply, seqid)); 
         result.Write(oprot);
       }
@@ -451,7 +451,7 @@ public partial class ResourcesServices {
       DeleteResource_result result = new DeleteResource_result();
       try
       {
-        result.Success = iface_.DeleteResource(args.IdResource);
+        result.Success = iface_.DeleteResource(args.RouteSave);
         oprot.WriteMessageBegin(new TMessage("DeleteResource", TMessageType.Reply, seqid)); 
         result.Write(oprot);
       }
@@ -479,7 +479,7 @@ public partial class ResourcesServices {
       GetResourcesList_result result = new GetResourcesList_result();
       try
       {
-        result.Success = iface_.GetResourcesList(args.IdService);
+        result.Success = iface_.GetResourcesList(args.Routes);
         oprot.WriteMessageBegin(new TMessage("GetResourcesList", TMessageType.Reply, seqid)); 
         result.Write(oprot);
       }
@@ -725,18 +725,18 @@ public partial class ResourcesServices {
   #endif
   public partial class GetResource_args : TBase
   {
-    private int _idResource;
+    private string _routeSave;
 
-    public int IdResource
+    public string RouteSave
     {
       get
       {
-        return _idResource;
+        return _routeSave;
       }
       set
       {
-        __isset.idResource = true;
-        this._idResource = value;
+        __isset.routeSave = true;
+        this._routeSave = value;
       }
     }
 
@@ -746,7 +746,7 @@ public partial class ResourcesServices {
     [Serializable]
     #endif
     public struct Isset {
-      public bool idResource;
+      public bool routeSave;
     }
 
     public GetResource_args() {
@@ -768,8 +768,8 @@ public partial class ResourcesServices {
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.I32) {
-                IdResource = iprot.ReadI32();
+              if (field.Type == TType.String) {
+                RouteSave = iprot.ReadString();
               } else { 
                 TProtocolUtil.Skip(iprot, field.Type);
               }
@@ -795,12 +795,12 @@ public partial class ResourcesServices {
         TStruct struc = new TStruct("GetResource_args");
         oprot.WriteStructBegin(struc);
         TField field = new TField();
-        if (__isset.idResource) {
-          field.Name = "idResource";
-          field.Type = TType.I32;
+        if (RouteSave != null && __isset.routeSave) {
+          field.Name = "routeSave";
+          field.Type = TType.String;
           field.ID = 1;
           oprot.WriteFieldBegin(field);
-          oprot.WriteI32(IdResource);
+          oprot.WriteString(RouteSave);
           oprot.WriteFieldEnd();
         }
         oprot.WriteFieldStop();
@@ -815,11 +815,11 @@ public partial class ResourcesServices {
     public override string ToString() {
       StringBuilder __sb = new StringBuilder("GetResource_args(");
       bool __first = true;
-      if (__isset.idResource) {
+      if (RouteSave != null && __isset.routeSave) {
         if(!__first) { __sb.Append(", "); }
         __first = false;
-        __sb.Append("IdResource: ");
-        __sb.Append(IdResource);
+        __sb.Append("RouteSave: ");
+        __sb.Append(RouteSave);
       }
       __sb.Append(")");
       return __sb.ToString();
@@ -945,18 +945,18 @@ public partial class ResourcesServices {
   #endif
   public partial class DeleteResource_args : TBase
   {
-    private int _idResource;
+    private string _routeSave;
 
-    public int IdResource
+    public string RouteSave
     {
       get
       {
-        return _idResource;
+        return _routeSave;
       }
       set
       {
-        __isset.idResource = true;
-        this._idResource = value;
+        __isset.routeSave = true;
+        this._routeSave = value;
       }
     }
 
@@ -966,7 +966,7 @@ public partial class ResourcesServices {
     [Serializable]
     #endif
     public struct Isset {
-      public bool idResource;
+      public bool routeSave;
     }
 
     public DeleteResource_args() {
@@ -988,8 +988,8 @@ public partial class ResourcesServices {
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.I32) {
-                IdResource = iprot.ReadI32();
+              if (field.Type == TType.String) {
+                RouteSave = iprot.ReadString();
               } else { 
                 TProtocolUtil.Skip(iprot, field.Type);
               }
@@ -1015,12 +1015,12 @@ public partial class ResourcesServices {
         TStruct struc = new TStruct("DeleteResource_args");
         oprot.WriteStructBegin(struc);
         TField field = new TField();
-        if (__isset.idResource) {
-          field.Name = "idResource";
-          field.Type = TType.I32;
+        if (RouteSave != null && __isset.routeSave) {
+          field.Name = "routeSave";
+          field.Type = TType.String;
           field.ID = 1;
           oprot.WriteFieldBegin(field);
-          oprot.WriteI32(IdResource);
+          oprot.WriteString(RouteSave);
           oprot.WriteFieldEnd();
         }
         oprot.WriteFieldStop();
@@ -1035,11 +1035,11 @@ public partial class ResourcesServices {
     public override string ToString() {
       StringBuilder __sb = new StringBuilder("DeleteResource_args(");
       bool __first = true;
-      if (__isset.idResource) {
+      if (RouteSave != null && __isset.routeSave) {
         if(!__first) { __sb.Append(", "); }
         __first = false;
-        __sb.Append("IdResource: ");
-        __sb.Append(IdResource);
+        __sb.Append("RouteSave: ");
+        __sb.Append(RouteSave);
       }
       __sb.Append(")");
       return __sb.ToString();
@@ -1162,18 +1162,18 @@ public partial class ResourcesServices {
   #endif
   public partial class GetResourcesList_args : TBase
   {
-    private int _idService;
+    private List<string> _routes;
 
-    public int IdService
+    public List<string> Routes
     {
       get
       {
-        return _idService;
+        return _routes;
       }
       set
       {
-        __isset.idService = true;
-        this._idService = value;
+        __isset.routes = true;
+        this._routes = value;
       }
     }
 
@@ -1183,7 +1183,7 @@ public partial class ResourcesServices {
     [Serializable]
     #endif
     public struct Isset {
-      public bool idService;
+      public bool routes;
     }
 
     public GetResourcesList_args() {
@@ -1205,8 +1205,18 @@ public partial class ResourcesServices {
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.I32) {
-                IdService = iprot.ReadI32();
+              if (field.Type == TType.List) {
+                {
+                  Routes = new List<string>();
+                  TList _list0 = iprot.ReadListBegin();
+                  for( int _i1 = 0; _i1 < _list0.Count; ++_i1)
+                  {
+                    string _elem2;
+                    _elem2 = iprot.ReadString();
+                    Routes.Add(_elem2);
+                  }
+                  iprot.ReadListEnd();
+                }
               } else { 
                 TProtocolUtil.Skip(iprot, field.Type);
               }
@@ -1232,12 +1242,19 @@ public partial class ResourcesServices {
         TStruct struc = new TStruct("GetResourcesList_args");
         oprot.WriteStructBegin(struc);
         TField field = new TField();
-        if (__isset.idService) {
-          field.Name = "idService";
-          field.Type = TType.I32;
+        if (Routes != null && __isset.routes) {
+          field.Name = "routes";
+          field.Type = TType.List;
           field.ID = 1;
           oprot.WriteFieldBegin(field);
-          oprot.WriteI32(IdService);
+          {
+            oprot.WriteListBegin(new TList(TType.String, Routes.Count));
+            foreach (string _iter3 in Routes)
+            {
+              oprot.WriteString(_iter3);
+            }
+            oprot.WriteListEnd();
+          }
           oprot.WriteFieldEnd();
         }
         oprot.WriteFieldStop();
@@ -1252,11 +1269,11 @@ public partial class ResourcesServices {
     public override string ToString() {
       StringBuilder __sb = new StringBuilder("GetResourcesList_args(");
       bool __first = true;
-      if (__isset.idService) {
+      if (Routes != null && __isset.routes) {
         if(!__first) { __sb.Append(", "); }
         __first = false;
-        __sb.Append("IdService: ");
-        __sb.Append(IdService);
+        __sb.Append("Routes: ");
+        __sb.Append(Routes);
       }
       __sb.Append(")");
       return __sb.ToString();
@@ -1316,13 +1333,13 @@ public partial class ResourcesServices {
               if (field.Type == TType.List) {
                 {
                   Success = new List<Resource>();
-                  TList _list0 = iprot.ReadListBegin();
-                  for( int _i1 = 0; _i1 < _list0.Count; ++_i1)
+                  TList _list4 = iprot.ReadListBegin();
+                  for( int _i5 = 0; _i5 < _list4.Count; ++_i5)
                   {
-                    Resource _elem2;
-                    _elem2 = new Resource();
-                    _elem2.Read(iprot);
-                    Success.Add(_elem2);
+                    Resource _elem6;
+                    _elem6 = new Resource();
+                    _elem6.Read(iprot);
+                    Success.Add(_elem6);
                   }
                   iprot.ReadListEnd();
                 }
@@ -1360,9 +1377,9 @@ public partial class ResourcesServices {
             oprot.WriteFieldBegin(field);
             {
               oprot.WriteListBegin(new TList(TType.Struct, Success.Count));
-              foreach (Resource _iter3 in Success)
+              foreach (Resource _iter7 in Success)
               {
-                _iter3.Write(oprot);
+                _iter7.Write(oprot);
               }
               oprot.WriteListEnd();
             }

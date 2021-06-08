@@ -27,6 +27,7 @@ public partial class Resource : TBase
   private string _name;
   private int _idService;
   private byte[] _resourceFile;
+  private int _idMemberATE;
 
   public int IdResource
   {
@@ -106,6 +107,19 @@ public partial class Resource : TBase
     }
   }
 
+  public int IdMemberATE
+  {
+    get
+    {
+      return _idMemberATE;
+    }
+    set
+    {
+      __isset.idMemberATE = true;
+      this._idMemberATE = value;
+    }
+  }
+
 
   public Isset __isset;
   #if !SILVERLIGHT
@@ -118,6 +132,7 @@ public partial class Resource : TBase
     public bool name;
     public bool idService;
     public bool resourceFile;
+    public bool idMemberATE;
   }
 
   public Resource() {
@@ -176,6 +191,13 @@ public partial class Resource : TBase
           case 6:
             if (field.Type == TType.String) {
               ResourceFile = iprot.ReadBinary();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          case 7:
+            if (field.Type == TType.I32) {
+              IdMemberATE = iprot.ReadI32();
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
@@ -249,6 +271,14 @@ public partial class Resource : TBase
         oprot.WriteBinary(ResourceFile);
         oprot.WriteFieldEnd();
       }
+      if (__isset.idMemberATE) {
+        field.Name = "idMemberATE";
+        field.Type = TType.I32;
+        field.ID = 7;
+        oprot.WriteFieldBegin(field);
+        oprot.WriteI32(IdMemberATE);
+        oprot.WriteFieldEnd();
+      }
       oprot.WriteFieldStop();
       oprot.WriteStructEnd();
     }
@@ -296,6 +326,12 @@ public partial class Resource : TBase
       __first = false;
       __sb.Append("ResourceFile: ");
       __sb.Append(ResourceFile);
+    }
+    if (__isset.idMemberATE) {
+      if(!__first) { __sb.Append(", "); }
+      __first = false;
+      __sb.Append("IdMemberATE: ");
+      __sb.Append(IdMemberATE);
     }
     __sb.Append(")");
     return __sb.ToString();

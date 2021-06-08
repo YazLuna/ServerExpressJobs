@@ -1,5 +1,7 @@
-bin/
 obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+ServerExpressJobs/thrift-0.10.0.exe
+.idea
+.git

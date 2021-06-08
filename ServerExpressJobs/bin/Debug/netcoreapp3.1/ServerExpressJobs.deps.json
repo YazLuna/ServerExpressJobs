@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "ServerExpressJobs/1.0.0": {
+        "dependencies": {
+          "ApacheThrift": "0.10.0"
+        },
+        "runtime": {
+          "ServerExpressJobs.dll": {}
+        }
+      },
+      "ApacheThrift/0.10.0": {
+        "runtime": {
+          "lib/net45/Thrift45.dll": {
+            "assemblyVersion": "0.10.0.1",
+            "fileVersion": "0.10.0.1"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ServerExpressJobs/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ApacheThrift/0.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5DotVzZ9cA/cGOrtMEt9EM2Ywb3Pbos5dw4uYL7Q9u6FdspAOH34419JUsLyEnTQ1MObJZpy3pJpblfP0z43AA==",
+      "path": "apachethrift/0.10.0",
+      "hashPath": "apachethrift.0.10.0.nupkg.sha512"
+    }
+  }
+}
