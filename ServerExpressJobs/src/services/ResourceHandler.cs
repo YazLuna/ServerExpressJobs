@@ -7,12 +7,12 @@ namespace ServerExpressJobs.services
 {
     public class ResourceHandler : ResourcesServices.Iface
     {
+        private readonly string url = "ftp://amigosinformaticos.ddns.net/";
         public int AddResource(Resource resource)
         {
-            int result = (int) ResponsesREST.SERVER_ERROR;
-            string url = "ftp://amigosinformaticos.ddns.net/";
+            int result = (int) ResponsesRest.ServerError;
             FtpWebRequest ftpSave = (FtpWebRequest) WebRequest.Create(new Uri(url + resource.RouteSave));
-            ftpSave.Credentials = new NetworkCredential("trabajosexpress", "expressWigettaz4");
+            ftpSave.Credentials = new NetworkCredential("trabajosexpress", "WigettaMmol");
             ftpSave.KeepAlive = false;
             ftpSave.UseBinary = true;
             ftpSave.UsePassive = true;
@@ -25,7 +25,7 @@ namespace ServerExpressJobs.services
             FtpWebResponse response = (FtpWebResponse) ftpSave.GetResponse();
             if (response.StatusCode == FtpStatusCode.ClosingData)
             {
-                result = (int) ResponsesREST.CREATED;
+                result = (int) ResponsesRest.Created;
             }
 
             response.Close();
@@ -35,17 +35,18 @@ namespace ServerExpressJobs.services
 
         public Resource GetResource(string routeSave)
         {
-            string url = "ftp://amigosinformaticos.ddns.net/" + routeSave;
+            string urlGet = url + routeSave;
             Resource resource = new Resource {RouteSave = routeSave};
             using (WebClient webClient = new WebClient())
             {
-                webClient.Credentials = new NetworkCredential("trabajosexpress", "expressWigettaz4");
+                webClient.Credentials = new NetworkCredential("trabajosexpress", "WigettaMmol");
                 try
                 {
-                    resource.ResourceFile = webClient.DownloadData(url);
+                    resource.ResourceFile = webClient.DownloadData(urlGet);
                 }
                 catch (WebException exception)
                 {
+                    Console.Write(exception);
                     resource.ResourceFile = null;
                 }
             }
@@ -55,22 +56,23 @@ namespace ServerExpressJobs.services
 
         public int DeleteResource(string routeSave)
         {
-            int result = (int) ResponsesREST.SERVER_ERROR;
-            string url = "ftp://amigosinformaticos.ddns.net/" + routeSave;
-            FtpWebRequest ftpWebRequest = (FtpWebRequest) WebRequest.Create(url);
-            ftpWebRequest.Credentials = new NetworkCredential("trabajosexpress", "expressWigettaz4");
+            int result = (int) ResponsesRest.ServerError;
+            string urlDelete = url + routeSave;
+            FtpWebRequest ftpWebRequest = (FtpWebRequest) WebRequest.Create(urlDelete);
+            ftpWebRequest.Credentials = new NetworkCredential("trabajosexpress", "WigettaMmol");
             try
             {
                 ftpWebRequest.Method = WebRequestMethods.Ftp.DeleteFile;
                 FtpWebResponse response = (FtpWebResponse) ftpWebRequest.GetResponse();
                 if (response.StatusCode == FtpStatusCode.FileActionOK)
                 {
-                    result = (int) ResponsesREST.SUCCESSFUL;
+                    result = (int) ResponsesRest.Successful;
                 }
             }
             catch (WebException exception)
             {
-                result = (int) ResponsesREST.NOT_FOUND;
+                Console.Write(exception);
+                result = (int) ResponsesRest.NotFound;
             }
 
             return result;

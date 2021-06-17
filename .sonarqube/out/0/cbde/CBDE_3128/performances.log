@@ -1,0 +1,124 @@
+D:\RiderProjects\ServerExpressJobs\ServerExpressJobs\Program.cs
+Main 107
+Main 109
+
+D:\RiderProjects\ServerExpressJobs\ServerExpressJobs\src\services\ResourceHandler.cs
+AddResource 42
+AddResource 46
+GetResource 9
+GetResource 0
+DeleteResource 4
+DeleteResource 15
+GetResourcesList 4
+GetResourcesList 0
+
+D:\RiderProjects\ServerExpressJobs\ServerExpressJobs\src\services\ResponsesREST.cs
+
+D:\RiderProjects\ServerExpressJobs\ServerExpressJobs\src\services\thrift\Resource.cs
+Read 5
+Read 0
+Write 11
+Write 0
+ToString 9
+ToString 0
+
+D:\RiderProjects\ServerExpressJobs\ServerExpressJobs\src\services\thrift\ResourcesServices.cs
+AddResource 5
+AddResource 0
+GetResource 6
+GetResource 0
+DeleteResource 6
+DeleteResource 0
+GetResourcesList 4
+GetResourcesList 0
+Dispose 5
+Dispose 15
+Dispose 7
+Dispose 0
+AddResource 6
+AddResource 0
+send_AddResource 8
+send_AddResource 0
+recv_AddResource 16
+recv_AddResource 15
+GetResource 5
+GetResource 0
+send_GetResource 8
+send_GetResource 0
+recv_GetResource 9
+recv_GetResource 0
+DeleteResource 5
+DeleteResource 0
+send_DeleteResource 7
+send_DeleteResource 0
+recv_DeleteResource 9
+recv_DeleteResource 0
+GetResourcesList 6
+GetResourcesList 0
+send_GetResourcesList 7
+send_GetResourcesList 15
+recv_GetResourcesList 6
+recv_GetResourcesList 0
+Process 4
+Process 0
+AddResource_Process 4
+AddResource_Process 0
+GetResource_Process 3
+GetResource_Process 0
+DeleteResource_Process 4
+DeleteResource_Process 0
+GetResourcesList_Process 4
+GetResourcesList_Process 0
+Read 4
+Read 0
+Write 4
+Write 0
+ToString 4
+ToString 15
+Read 4
+Read 0
+Write 3
+Write 0
+ToString 6
+ToString 0
+Read 5
+Read 0
+Write 4
+Write 0
+ToString 4
+ToString 0
+Read 4
+Read 0
+Write 4
+Write 0
+ToString 4
+ToString 0
+Read 4
+Read 0
+Write 4
+Write 0
+ToString 4
+ToString 0
+Read 4
+Read 0
+Write 4
+Write 0
+ToString 7
+ToString 0
+Read 3
+Read 0
+Write 4
+Write 0
+ToString 4
+ToString 0
+Read 4
+Read 0
+Write 4
+Write 0
+ToString 22
+ToString 0
+
+D:\RiderProjects\ServerExpressJobs\ServerExpressJobs\obj\Debug\netcoreapp3.1\.NETCoreApp,Version=v3.1.AssemblyAttributes.cs
+
+D:\RiderProjects\ServerExpressJobs\ServerExpressJobs\obj\Debug\netcoreapp3.1\ServerExpressJobs.AssemblyInfo.cs
+
